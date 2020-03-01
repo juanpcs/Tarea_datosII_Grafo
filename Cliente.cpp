@@ -3,6 +3,7 @@
 
 using namespace std;
 
+//Creacion de la clase cliente
 class Cliente{
 public:
 
@@ -48,7 +49,7 @@ char buffer[1024]; // almacena los datos ingresados
         cin>>this->buffer;
         //Funcion que envia el mensaje al servidor tiene como parametros:
         //El socket del servidor, Los datos (buffer), El tamaño de los datos, conjunto de banderas que se puede dejar en 0
-        send(server, buffer, sizeof(buffer), 0);
+        send(servidor, buffer, sizeof(buffer), 0);
         //funcion para limpiar el buffer
         memset(buffer, 0, sizeof(buffer));
         //funcion para limpiar el buffer
@@ -56,4 +57,37 @@ char buffer[1024]; // almacena los datos ingresados
         cout << "Mensaje enviado!" << endl;
     }
 
+    //Funcion para recibir mensajes del servidor
+    void Recibir()
+    {
+        //Funcion que recibe el mensaje del servidor tiene como parametros:
+        //El socket del servidor, Los datos (buffer), El tamaño de los datos, conjunto de banderas que se puede dejar en 0
+        recv(servidor, buffer, sizeof(buffer), 0);
+        cout << "El servidor dice: " << buffer << endl;
+        //funcion para limpiar el buffer
+        memset(buffer, 0, sizeof(buffer));
+        //funcion para limpiar el buffer
+        fflush(stdin);
+    }
+
+    //Funcion para cerrar el socket
+    void CerrarSocket()
+    {
+       //Funcion que desconecta el socket del servidor
+       closesocket(servidor);
+       //Funcion que le avisa a la pc que ya no usaremos sockets
+       WSACleanup();
+       cout << "Socket cerrado." << endl << endl;
+    }
+
 };
+
+int main()
+{
+    Cliente *Client = new Cliente();
+    while(true)
+    {
+        Client->Enviar();
+        Client->Recibir();
+    }
+}

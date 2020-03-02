@@ -26,7 +26,7 @@ char buffer[1024]; // almacena los datos ingresados
 //Una vez declarado el socket, se le indica a qué dirección IP debe conectarse y qué puerto debe usar:
 
         //especifica dir ip del server
-        addr.sin_addr.s_addr = inet_addr("192.168.100.1");
+        addr.sin_addr.s_addr = inet_addr("192.168.100.22");
         //especifica de nuevo la familia de direcciones
         addr.sin_family = AF_INET;
         //establece el puerto en el que se debe conectar el socket (5555).
@@ -42,7 +42,7 @@ char buffer[1024]; // almacena los datos ingresados
     }
 
 
-    //Funcion para enviar mensajes al cliente
+    //Funcion para enviar mensajes al servidor
     void Enviar()
     {
         cout<<"Escribe el mensaje a enviar: ";
